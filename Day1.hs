@@ -18,8 +18,8 @@ rotateDial :: Dial -> Rotation -> Dial
 rotateDial d (R n) = (d + n) `mod` 100
 rotateDial d (L n) = (d - n) `mod` 100
 
-countDialOnZero :: Dial -> [Rotation] -> Int
-countDialOnZero d rots = aux d rots 0
+countDialLeftOnZero :: Dial -> [Rotation] -> Int
+countDialLeftOnZero d rots = aux d rots 0
     where
         aux _ [] i = i
         aux d (rot:rots) i = let newDial = rotateDial d rot in
@@ -29,3 +29,15 @@ countDialOnZero d rots = aux d rots 0
                 aux newDial rots (i + 1)
             else
                 aux newDial rots i
+
+-- Part Two
+dialOnZero :: Dial -> Rotation -> Int
+dialOnZero d (R n) = (d + n) `div` 100
+dialOnZero d (L n) = abs $ (d - n) `div` 100
+
+countDialOnZero :: Dial -> [Rotation] -> Int
+countDialOnZero d rots = aux d rots 0
+    where
+        aux _ [] i = i
+        aux d (rot:rots) i = let newDial = rotateDial d rot in
+            aux newDial rots $ i + dialOnZero d rot
