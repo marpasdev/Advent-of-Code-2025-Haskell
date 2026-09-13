@@ -31,6 +31,14 @@ day2 = do
     let invalidIDs = filter (not . isValidProductID) idsToCheck
     print $ sum invalidIDs
 
+day2part2 :: IO ()
+day2part2 = do
+    contents <- readFile "input/unchecked_ranges.txt"
+    let ranges = parseRange <$> (splitOn "," contents)
+    let idsToCheck = concat $ getRange <$> ranges
+    let invalidIDs = filter (not . isValidProductIDExtended) idsToCheck
+    print $ sum invalidIDs
+
 main :: IO ()
 main = do
-    day2
+    day2part2
