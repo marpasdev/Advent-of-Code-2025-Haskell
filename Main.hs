@@ -3,6 +3,7 @@ module Main
 
 import Day1
 import Day2 
+import Day3
 
 import System.IO
 import Data.List.Split (splitOn)
@@ -39,6 +40,14 @@ day2part2 = do
     let invalidIDs = filter (not . isValidProductIDExtended) idsToCheck
     print $ sum invalidIDs
 
+day3 :: IO ()
+day3 = do
+    contents <- readFile "input/batteries.txt"
+    let banks = lines contents
+    let maxJoltages = maxJoltage <$> banks
+    let totalJoltage = sum maxJoltages
+    print totalJoltage
+
 main :: IO ()
 main = do
-    day2part2
+    day3
